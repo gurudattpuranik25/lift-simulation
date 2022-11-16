@@ -25,9 +25,9 @@ generate.addEventListener("click", (e) => {
 const validateInputs = () => {
   let numberOfFloors = noOfFloors.value;
   let numberOfLifts = noOfLifts.value;
-  if (numberOfFloors <= 1 || numberOfLifts <= 0 || numberOfLifts > 10) {
+  if (numberOfFloors <= 1 || numberOfLifts <= 0 || numberOfLifts > 5) {
     error__result.innerHTML =
-      "Floor count should be >=2 and lift count should be in between 1 and 10.";
+      "Floor count should be >=2 and lift count should be in between 1 and 5.";
     simulation__window.innerHTML = "";
   } else {
     error__result.innerHTML = "";
