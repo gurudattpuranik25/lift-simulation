@@ -25,9 +25,9 @@ generate.addEventListener("click", (e) => {
 const validateInputs = () => {
   let numberOfFloors = noOfFloors.value;
   let numberOfLifts = noOfLifts.value;
-  if (numberOfFloors <= 1 || numberOfLifts <= 0 || numberOfLifts > 5) {
+  if (numberOfFloors <= 1 || numberOfLifts <= 0 || numberOfLifts > 3) {
     error__result.innerHTML =
-      "Floor count should be >=2 and lift count should be in between 1 and 5.";
+      "Floor count should be >=2 and lift count should be in between 1 and 3.";
     simulation__window.innerHTML = "";
   } else {
     error__result.innerHTML = "";
@@ -69,7 +69,7 @@ const generateLifts = (n) => {
               <div class="gate gateLeft" id="L${i}left_gate"></div>
               <div class="gate gateRight" id="L${i}right_gate"></div>
           `;
-    currLift.style.left = `${(i + 1) * 100}px`;
+    currLift.style.left = `${(i + 1) * 80}px`;
     currLift.style.top = "0px";
     document.getElementById("Floor-0").appendChild(currLift);
     liftStates[i] = 0;
@@ -151,10 +151,9 @@ const animateLiftsDoors = (liftNo, targetLiftPosn) => {
 };
 
 const findNearestFreeLift = (flrNo) => {
-  // console.log(flrNo,liftStates)
   let prevDiff = Number.MAX_SAFE_INTEGER;
   let nearestAvailableLift = -1;
-  // console.log(liftStates,flrNo)
+
   for (let i = 0; i < liftStates.length; i++) {
     if (liftInfo[i].inMotion === false) {
       const currDiff = Math.abs(liftStates[i] - flrNo);
@@ -164,7 +163,6 @@ const findNearestFreeLift = (flrNo) => {
       }
     }
   }
-  // console.log(`nearestAvailableLift is ${nearestAvailableLift}`)
   return nearestAvailableLift;
 };
 
