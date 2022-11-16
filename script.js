@@ -12,6 +12,17 @@ let liftTargets = [];
 
 generate.addEventListener("click", (e) => {
   e.preventDefault();
+
+  if (simulation__window.innerHTML === "") {
+    validateInputs();
+  } else if (simulation__window.innerHTML !== "") {
+    simulation__window.innerHTML = "";
+    validateInputs();
+  }
+  return;
+});
+
+const validateInputs = () => {
   let numberOfFloors = noOfFloors.value;
   let numberOfLifts = noOfLifts.value;
   if (numberOfFloors <= 1 || numberOfLifts <= 0 || numberOfLifts > 10) {
@@ -25,7 +36,7 @@ generate.addEventListener("click", (e) => {
     buttonFunctions();
     intervalId = setInterval(handleLiftCall, 1000);
   }
-});
+};
 
 const generateFloors = (n) => {
   for (let i = 0; i < n; i++) {
@@ -70,7 +81,7 @@ const generateLifts = (n) => {
   }
 };
 
-function buttonFunctions() {
+const buttonFunctions = () => {
   const allButtons = document.querySelectorAll(".button-floor");
   allButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -81,9 +92,9 @@ function buttonFunctions() {
       }
     });
   });
-}
+};
 
-function translateLiftOld(liftNo, targetLiftPosn) {
+const translateLiftOld = (liftNo, targetLiftPosn) => {
   const reqLift = document.getElementById(`Lift-${liftNo}`);
   let currLiftPosn = parseInt(liftStates[liftNo]);
   var animationId = setInterval(animate, 100);
@@ -99,9 +110,9 @@ function translateLiftOld(liftNo, targetLiftPosn) {
       clearInterval(animationId);
     }
   }
-}
+};
 
-function translateLift(liftNo, targetLiftPosn) {
+const translateLift = (liftNo, targetLiftPosn) => {
   const reqLift = document.getElementById(`Lift-${liftNo}`);
   let currLiftPosn = parseInt(liftStates[liftNo]);
 
@@ -123,9 +134,9 @@ function translateLift(liftNo, targetLiftPosn) {
     liftInfo[liftNo].inMotion = true;
     animateLiftsDoors(liftNo, targetLiftPosn);
   }
-}
+};
 
-function animateLiftsDoors(liftNo, targetLiftPosn) {
+const animateLiftsDoors = (liftNo, targetLiftPosn) => {
   const leftGate = document.getElementById(`L${liftNo}left_gate`);
   const rightGate = document.getElementById(`L${liftNo}right_gate`);
   leftGate.classList.toggle("animateLiftsDoorsOnFloorStop");
@@ -137,9 +148,9 @@ function animateLiftsDoors(liftNo, targetLiftPosn) {
     rightGate.classList.toggle("animateLiftsDoorsOnFloorStop");
     liftTargets = liftTargets.filter((item) => item !== targetLiftPosn);
   }, 5000);
-}
+};
 
-function findNearestFreeLift(flrNo) {
+const findNearestFreeLift = (flrNo) => {
   // console.log(flrNo,liftStates)
   let prevDiff = Number.MAX_SAFE_INTEGER;
   let nearestAvailableLift = -1;
@@ -155,9 +166,9 @@ function findNearestFreeLift(flrNo) {
   }
   // console.log(`nearestAvailableLift is ${nearestAvailableLift}`)
   return nearestAvailableLift;
-}
+};
 
-function handleLiftCall() {
+const handleLiftCall = () => {
   if (!liftCallArray.length) return;
   let targetFlr = liftCallArray[0];
 
@@ -166,4 +177,4 @@ function handleLiftCall() {
     translateLift(liftToMove, targetFlr);
     liftCallArray.shift();
   }
-}
+};
