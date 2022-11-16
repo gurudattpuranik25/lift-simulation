@@ -69,7 +69,7 @@ const generateLifts = (n) => {
               <div class="gate gateLeft" id="L${i}left_gate"></div>
               <div class="gate gateRight" id="L${i}right_gate"></div>
           `;
-    currLift.style.left = `${(i + 1) * 80}px`;
+    currLift.style.left = `${(i + 1) * 90}px`;
     currLift.style.top = "0px";
     document.getElementById("Floor-0").appendChild(currLift);
     liftStates[i] = 0;
